@@ -1,4 +1,4 @@
-### Directory Synchronisation Demo - Suyash SHANDILYA
+## Directory Synchronisation Demo - Suyash SHANDILYA
 
 - Demo directory synchronisation app for Veeam.
 - Built on `Linux kali 6.11.2-amd64`
@@ -7,7 +7,7 @@
 - `file-io.log` keeps track of all the file/folder manipulations done to maintain sync.
 - `synchronisation.log` Keeps a log of the sync run.
 
-### Getting started
+## Getting started
 
 (Linux based commands)
 
