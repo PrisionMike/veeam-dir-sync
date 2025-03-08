@@ -25,4 +25,3 @@ if __name__ == '__main__':
     
     with daemon.DaemonContext(working_directory=PWD):
         test_log_write()
-    # test_log_write()

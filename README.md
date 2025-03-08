@@ -11,5 +11,5 @@
 
 (Linux based commands)
 
-- Initialize The virtual environment. `source ./veeam-env/bin/activate`
+- Initialize the virtual environment. `source ./veeam-env/bin/activate`
 - Install dependencies: `pip install -r requirements.txt`
