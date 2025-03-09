@@ -3,7 +3,7 @@ import hashlib
 
 from dotenv import load_dotenv
 
-load_dotenv('/home/strider/veeam-assignment/.env')
+load_dotenv('/home/strider/veeam-assignment/.env', override=True)
 
 def test_sync_is_on():
     assert os.getenv("SYNC_ON") == "TRUE"
