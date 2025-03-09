@@ -6,6 +6,7 @@
 - Virtual environment uploaded for convenience.
 - `file-io.log` keeps track of all the file/folder manipulations done to maintain sync.
 - `synchronisation.log` Keeps a log of the sync run.
+- Using `shutils.copyfile` instead of `copy2` for ease of testing.
 
 ## Getting started
 
