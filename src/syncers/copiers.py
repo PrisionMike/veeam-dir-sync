@@ -1,5 +1,8 @@
 import shutil
-from os import path, makedirs
+from os import (path,
+                makedirs,
+                listdir,
+                remove)
 
 from utils.utils import md5_file
 from my_logging.logging import *
@@ -28,3 +31,26 @@ def sync_dir(dirpath, dirname, src_dir, replica_path, log_file):
     if not path.exists(replica_subdir):
         makedirs(replica_subdir, exist_ok=True)
         log_dir_created(replica_subdir, log_file)
+
+def sync_prune(dirpath, dirnames, filenames, source_path, replica_path, log_file):
+    rel_path = path.relpath(dirpath, source_path)
+    replica_dir = path.join(replica_path, rel_path)
+    rep_members = listdir(replica_dir)
+    
+    [remove_dir(x, dirpath, log_file)
+     for x in rep_members
+     if x not in dirnames and path.isdir(x)]
+    
+    [remove_file(x, dirpath, log_file)
+     for x in rep_members
+     if x not in filenames and path.isfile(x)]
+
+def remove_dir(dir, dirpath, log_file):
+    full_path = path.join(dirpath, dir)
+    log_dir_removed(full_path, log_file)
+    shutil.rmtree(full_path)
+
+def remove_file(file, dirpath, log_file):
+    full_path = path.join(dirpath, file)
+    log_file_removed(full_path, log_file)
+    remove(full_path)

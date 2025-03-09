@@ -28,11 +28,15 @@ def populate_globals():
 
 def walk_the_dir(dir):
     """
-    Merkle tree hash. Only root has stored.
+    Merkle tree hash. Only root hash is returned. Since we don't have a ready-to-use
+    way to detect file changes deeper in the directory structure, the Merkle construction
+    is moot. Thus this function IS SIMPLY A DFS traversal of the directory argument.
     """
     dir_hashes = {}
     for dirpath, dirnames, filenames in os.walk(dir, topdown=False):
         entries = []
+
+        sync_prune(dirpath, dirnames, filenames, SOURCE_DIR, REPLICA_DIR, IO_LOG_FILE)
         for filename in sorted(filenames):
             fullpath = os.path.join(dirpath, filename)
             file_hash = md5_file(fullpath)
@@ -41,7 +45,7 @@ def walk_the_dir(dir):
 
         for dirname in sorted(dirnames):
             subdir_path = os.path.join(dirpath, dirname)
-            sync_dir(dirpath, dirname, SOURCE_DIR, REPLICA_DIR, IO_LOG_FILE)
+            sync_dir(dirpath, dirname, SOURCE_DIR, REPLICA_DIR, IO_LOG_FILE) # For empty dirs.
             if subdir_path in dir_hashes:
                 entries.append(dirname + dir_hashes[subdir_path])
 

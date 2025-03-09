@@ -7,7 +7,7 @@ import shutil
 from dotenv import load_dotenv
 from datetime import datetime
 
-INTERVAL = 3
+INTERVAL = 1
 
 load_dotenv('../.env')
 

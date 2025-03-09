@@ -1,9 +1,38 @@
-[2025-03-09 19:53:39.196345] --- DIR CREATED  --- /home/strider/veeam-assignment/replica2/dir_ZbWsP/dir_kofaQ
-[2025-03-09 19:53:39.196493] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_ZbWsP/dir_kofaQ/file_GLHhV.txt --- 61bd9db55c1c6775939f598496786246
-[2025-03-09 19:53:39.196692] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_ZbWsP/dir_kofaQ/file_QPtjQ.txt --- fe4310ee611815fc0f73ce9cdcead8ce
-[2025-03-09 19:53:39.196876] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_ZZBbN.txt --- 3de1c1cf8d1a21f6acbb303842233e8d
-[2025-03-09 19:53:39.197020] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_nBgCo.txt --- 49d15549ec678fad3d7a5e3a13989634
-[2025-03-09 19:53:39.197163] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_pyhhd.txt --- b73818c7fccb3695ee2add83944fda7e
-[2025-03-09 19:53:39.197300] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_qudhv.txt --- 06130aae7a9901309490cfcfae113d98
-[2025-03-09 19:53:39.197380] --- DIR CREATED  --- /home/strider/veeam-assignment/replica2/./dir_LSnSB
-[2025-03-09 19:53:39.197443] --- DIR CREATED  --- /home/strider/veeam-assignment/replica2/./dir_OtCAy
+[2025-03-09 20:00:14.933773] --- DIR CREATED  --- /home/strider/veeam-assignment/replica/dir_LSnSB/dir_NPKQs
+[2025-03-09 20:00:14.933922] --- FILE CREATED --- /home/strider/veeam-assignment/replica/dir_LSnSB/dir_NPKQs/file_saeai.txt --- 2bd249eae73fba5303d52cacafedcdc7
+[2025-03-09 20:00:14.934106] --- FILE CREATED --- /home/strider/veeam-assignment/replica/./file_UQRZa.txt --- ebad5419b1f5f6124b4af1856f7f9874
+[2025-03-09 20:00:14.934266] --- FILE CREATED --- /home/strider/veeam-assignment/replica/./file_ZZBbN.txt --- 3de1c1cf8d1a21f6acbb303842233e8d
+[2025-03-09 20:00:14.934403] --- FILE CREATED --- /home/strider/veeam-assignment/replica/./file_nBgCo.txt --- 49d15549ec678fad3d7a5e3a13989634
+[2025-03-09 20:00:14.934517] --- FILE CREATED --- /home/strider/veeam-assignment/replica/./file_pyhhd.txt --- b73818c7fccb3695ee2add83944fda7e
+[2025-03-09 20:06:15.779705] --- DIR CREATED  --- /home/strider/veeam-assignment/replica2/dir_zkQwd/dir_HoCLF
+[2025-03-09 20:06:15.779932] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_zkQwd/dir_HoCLF/file_POwqx.txt --- 002ac8d37afa2e2b2d1ae9b39c0e7a21
+[2025-03-09 20:06:15.780209] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_zkQwd/dir_HoCLF/file_rLndC.txt --- 5bdc2ff41fade91b62a9babf89e5de38
+[2025-03-09 20:06:15.780470] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_zkQwd/file_XHDRN.txt --- 8c8803d66306190044dca51f3c460d23
+[2025-03-09 20:06:15.780669] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_zkQwd/file_dobwO.txt --- 2772e751374e3e828f8d2a332f953ba3
+[2025-03-09 20:06:15.780851] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_zkQwd/file_fnzvJ.txt --- 1e080ac5789a106b95687447c00c9098
+[2025-03-09 20:06:15.781100] --- DIR CREATED  --- /home/strider/veeam-assignment/replica2/dir_VQHpV/dir_pUiQV
+[2025-03-09 20:06:15.781287] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_VQHpV/dir_pUiQV/file_nXwRB.txt --- dad4616b3de95bf8e151947ded48afd5
+[2025-03-09 20:06:15.781506] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_VQHpV/file_RcxwO.txt --- fb173add42a199086649e16eed1616c6
+[2025-03-09 20:06:15.781679] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_VQHpV/file_bsjXi.txt --- 8b6030aad12de877e78315e9035b60a9
+[2025-03-09 20:06:15.781828] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_VQHpV/file_yStEe.txt --- 07a543cf1411d4118fb604a2de905c43
+[2025-03-09 20:06:15.782081] --- DIR CREATED  --- /home/strider/veeam-assignment/replica2/dir_WIqQg/dir_Lpdhd
+[2025-03-09 20:06:15.782220] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_WIqQg/dir_Lpdhd/file_bFwgm.txt --- 2948590c65c1ba5cdb62374fce2d5c5b
+[2025-03-09 20:06:15.782348] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_WIqQg/file_qLXOM.txt --- 2267203a005da65bd96e41b540c7d48f
+[2025-03-09 20:06:15.782471] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_WIqQg/file_rUUOc.txt --- 005746840e472ab722d6756b8bb84041
+[2025-03-09 20:06:15.782599] --- DIR CREATED  --- /home/strider/veeam-assignment/replica2/dir_JNIse
+[2025-03-09 20:06:15.782728] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_JNIse/file_cdqPM.txt --- 346dc7bed10888e2cf52a68e3fd04c3f
+[2025-03-09 20:06:15.782890] --- DIR CREATED  --- /home/strider/veeam-assignment/replica2/dir_zdPWy
+[2025-03-09 20:06:15.782981] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_zdPWy/file_GVSXZ.txt --- 88a2c4489f392e3f610f390df5d5f111
+[2025-03-09 20:06:15.783092] --- DIR CREATED  --- /home/strider/veeam-assignment/replica2/dir_XymIE
+[2025-03-09 20:06:15.783181] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_XymIE/file_JSwow.txt --- 8187e232757bb8bf03b2e20810ed26c1
+[2025-03-09 20:06:15.783324] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_AGRzN.txt --- 755031544402754ecd14ab6604fffb4a
+[2025-03-09 20:06:15.783443] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_BsVyl.txt --- d9ee89eaadfb48eb30b7efa3e8572511
+[2025-03-09 20:06:15.783566] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_DXgVa.txt --- e8c543f3f14f65e11ac3dbe883d53419
+[2025-03-09 20:06:15.783707] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_KKIUE.txt --- 57199e6013e5dac9fd21cd68a0413171
+[2025-03-09 20:06:15.783907] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_PEzeI.txt --- bb97f7c68ff30a03273849ad591f6056
+[2025-03-09 20:06:15.784070] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_ZbByR.txt --- 1f50a759c8349528c9243de42a1e30f8
+[2025-03-09 20:06:15.784225] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_aZBig.txt --- 12adb3911a0873570c44a1304565ff2b
+[2025-03-09 20:06:15.784367] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_czwnD.txt --- 05240d0d9f281ead91071ce135185fc9
+[2025-03-09 20:06:15.784510] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_qdbyn.txt --- 19a100e8f8ca6cc06a43980982e9b129
+[2025-03-09 20:06:15.784652] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_vgZVa.txt --- a55b631a63848467eca04018d3358bec
+[2025-03-09 20:06:15.784816] --- DIR CREATED  --- /home/strider/veeam-assignment/replica2/./dir_hTmwe

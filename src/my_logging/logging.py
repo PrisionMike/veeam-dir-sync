@@ -11,3 +11,11 @@ def log_file_created(replica_file_path, file_hash, log_file):
 def log_dir_created(replica_subdir, log_file):
     with open(log_file, 'a') as f:
         f.write(f"[{datetime.now()}] --- DIR CREATED  --- {replica_subdir}\n")
+
+def log_dir_removed(full_path, log_file):
+    with open(log_file, 'a') as f:
+        f.write(f"[{datetime.now()}] --- DIR REMOVED  --- {full_path}\n")
+
+def log_file_removed(full_path, log_file):
+    with open(log_file, 'a') as f:
+        f.write(f"[{datetime.now()}] --- FILE REMOVED --- {full_path}\n")
