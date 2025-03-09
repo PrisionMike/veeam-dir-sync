@@ -17,28 +17,48 @@ def random_string(length=10):
     """Generate a random string of given length."""
     return ''.join(random.choices(string.ascii_letters, k=length))
 
-def create_random_structure(base_dir, depth=2, max_files=4):
+def create_random_structure(base_dir, depth=2, max_files=4, file_probability=0.7):
     """
-    Creates a nested directory structure (of given depth) under base_dir and
-    adds a few random files with random text.
+    Creates a nested directory structure under base_dir.
+    At each level, with a given probability, it creates a random number of files.
+    Files contain random text.
+    
+    Parameters:
+        base_dir (str): The root directory for creation.
+        depth (int): The number of nested subdirectories to create.
+        max_files (int): Maximum number of files that can be created at any level.
+        file_probability (float): Chance [0,1] to create files at a given level.
     """
     current_dir = base_dir
-    # Create nested directories
-    for _ in range(depth):
+    os.makedirs(current_dir, exist_ok=True)
+    
+    for level in range(depth):
+        # Optionally create files at the current level
+        if random.random() < file_probability:
+            num_files = random.randint(1, max_files)
+            for _ in range(num_files):
+                file_name = "file_" + random_string(5) + ".txt"
+                file_path = os.path.join(current_dir, file_name)
+                with open(file_path, "w") as f:
+                    f.write(random_string(50))
+            print(f"[{datetime.now()}] Created {num_files} file(s) in: {current_dir}")
+        
+        # Create the next subdirectory level
         dir_name = "dir_" + random_string(5)
         current_dir = os.path.join(current_dir, dir_name)
         os.makedirs(current_dir, exist_ok=True)
+        print(f"[{datetime.now()}] Created subdirectory: {current_dir}")
     
-    # Create a random number (1 to max_files) of files in the deepest folder
-    num_files = random.randint(1, max_files)
-    for _ in range(num_files):
-        file_name = "file_" + random_string(5) + ".txt"
-        file_path = os.path.join(current_dir, file_name)
-        # Write a small random text snippet into the file
-        with open(file_path, "w") as f:
-            f.write(random_string(50))
-    
-    print(f"[{datetime.now()}] Created structure in: {current_dir}")
+    # Optionally create files in the deepest directory
+    if random.random() < file_probability:
+        num_files = random.randint(1, max_files)
+        for _ in range(num_files):
+            file_name = "file_" + random_string(5) + ".txt"
+            file_path = os.path.join(current_dir, file_name)
+            with open(file_path, "w") as f:
+                f.write(random_string(50))
+        print(f"[{datetime.now()}] Created {num_files} file(s) in deepest dir: {current_dir}")
+
 
 def create_random_file_in_root(base_dir):
     """Create a random file directly in the base directory."""
