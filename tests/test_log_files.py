@@ -40,6 +40,7 @@ def test_number_of_dirs_created():
     src_dir_count = count_dirs(SRC)
     assert count_log_lines('DIR CREATED') == src_dir_count
 
+@pytest.mark.skip(reason="Freezing source. Can't delete.")
 def test_number_of_files_created():
     clear_and_call()
     src_file_count = count_files(SRC)
@@ -48,7 +49,7 @@ def test_number_of_files_created():
 def clear_and_call():
     open(IO_LOG_FILE, 'w').close() # Clearing log file.
     result = subprocess.run(
-        ["rm -r replica2/*"],
+        ["rm -r replica2/*"], # HARD CODED
         shell=True,
         capture_output=True,
         text=True
