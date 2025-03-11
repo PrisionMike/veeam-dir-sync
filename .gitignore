@@ -1,4 +1,6 @@
 # .env
 source2
 replica2
+src-incomp
+src-full
 **/__pycache__/

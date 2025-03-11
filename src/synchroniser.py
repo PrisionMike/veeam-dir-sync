@@ -36,7 +36,6 @@ def walk_the_dir(dir):
     for dirpath, dirnames, filenames in os.walk(dir, topdown=False):
         entries = []
 
-        sync_prune(dirpath, dirnames, filenames, SOURCE_DIR, REPLICA_DIR, IO_LOG_FILE)
         for filename in sorted(filenames):
             fullpath = os.path.join(dirpath, filename)
             file_hash = md5_file(fullpath)
@@ -49,6 +48,7 @@ def walk_the_dir(dir):
             if subdir_path in dir_hashes:
                 entries.append(dirname + dir_hashes[subdir_path])
 
+        sync_prune(dirpath, dirnames, filenames, SOURCE_DIR, REPLICA_DIR, IO_LOG_FILE)
         combined = ''.join(entries).encode('utf-8')
         dir_hashes[dirpath] = hashlib.md5(combined).hexdigest()
 
@@ -56,5 +56,6 @@ def walk_the_dir(dir):
 
 if __name__ == '__main__':
     populate_globals()
+    clear_io_log(IO_LOG_FILE)
     dir_hash = walk_the_dir(SOURCE_DIR)
     print("Source hash", dir_hash)

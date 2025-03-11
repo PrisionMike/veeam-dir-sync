@@ -35,22 +35,22 @@ def sync_dir(dirpath, dirname, src_dir, replica_path, log_file):
 def sync_prune(dirpath, dirnames, filenames, source_path, replica_path, log_file):
     rel_path = path.relpath(dirpath, source_path)
     replica_dir = path.join(replica_path, rel_path)
-    rep_members = listdir(replica_dir)
-    
-    [remove_dir(x, dirpath, log_file)
-     for x in rep_members
-     if x not in dirnames and path.isdir(x)]
-    
-    [remove_file(x, dirpath, log_file)
-     for x in rep_members
-     if x not in filenames and path.isfile(x)]
+    try:
+        rep_members = listdir(replica_dir)
 
-def remove_dir(dir, dirpath, log_file):
-    full_path = path.join(dirpath, dir)
-    log_dir_removed(full_path, log_file)
-    shutil.rmtree(full_path)
+        for mem in rep_members:
+            mem_path = path.join(replica_dir, mem)
+            if mem_path not in dirnames and path.isdir(mem_path):
+                remove_dir(mem_path, log_file)
+            if mem_path not in filenames and path.isfile(mem_path):
+                remove_file(mem_path, log_file)
+    except FileNotFoundError:
+        pass
 
-def remove_file(file, dirpath, log_file):
-    full_path = path.join(dirpath, file)
-    log_file_removed(full_path, log_file)
-    remove(full_path)
+def remove_dir(mem_path, log_file):
+    log_dir_removed(mem_path, log_file)
+    shutil.rmtree(mem_path)
+
+def remove_file(mem_path, log_file):
+    log_file_removed(mem_path, log_file)
+    remove(mem_path)
