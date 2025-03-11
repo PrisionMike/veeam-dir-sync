@@ -43,7 +43,7 @@ def get_all_paths(dir):
 def test_replica_copies_source():
     compare_dirs(SRC, REP)
 
-def test_sync_after_invoke():
+def test_sync_invoke_with_current_files():
     result = subprocess.run(
         ["python", "src/synchroniser.py"],  # Command to run the script
         capture_output=True,        # Capture stdout and stderr
@@ -55,6 +55,62 @@ def test_sync_after_invoke():
 def test_clear_replica_then_invoke():
     result = subprocess.run(
         ["rm -r replica2/*"], # HARDCODED
+        shell=True,
+        capture_output=True,
+        text=True
+    )
+    result = subprocess.run(
+        ["python", "src/synchroniser.py"],
+        capture_output=True,
+        text=True
+    )
+    compare_dirs(SRC, REP)
+
+def test_invoke_replica_surplus():
+    result = subprocess.run(
+        ["cp -r src-incomp/* source2/ && cp -r src-full/* replica2/"], # HARDCODED
+        shell=True,
+        capture_output=True,
+        text=True
+    )
+    result = subprocess.run(
+        ["python", "src/synchroniser.py"],
+        capture_output=True,
+        text=True
+    )
+    compare_dirs(SRC, REP)
+
+def test_invoke_replica_deficit():
+    result = subprocess.run(
+        ["cp -r src-incomp/* replica2/ && cp -r src-full/* source2/"], # HARDCODED
+        shell=True,
+        capture_output=True,
+        text=True
+    )
+    result = subprocess.run(
+        ["python", "src/synchroniser.py"],
+        capture_output=True,
+        text=True
+    )
+    compare_dirs(SRC, REP)
+
+def test_invoke_alpha_beta():
+    result = subprocess.run(
+        ["cp -r src-alpha/* replica2/ && cp -r src-beta/* source2/"], # HARDCODED
+        shell=True,
+        capture_output=True,
+        text=True
+    )
+    result = subprocess.run(
+        ["python", "src/synchroniser.py"],
+        capture_output=True,
+        text=True
+    )
+    compare_dirs(SRC, REP)
+
+def test_invoke_beta_alpha():
+    result = subprocess.run(
+        ["cp -r src-beta/* replica2/ && cp -r src-alpha/* source2/"], # HARDCODED
         shell=True,
         capture_output=True,
         text=True
