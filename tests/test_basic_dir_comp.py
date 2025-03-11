@@ -51,7 +51,7 @@ def test_sync_after_invoke():
     )
     compare_dirs(SRC, REP)
 
-@pytest.mark.skip(reason="Freezing source. Can't delete.")
+# @pytest.mark.skip(reason="Freezing source. Can't delete.")
 def test_clear_replica_then_invoke():
     result = subprocess.run(
         ["rm -r replica2/*"], # HARDCODED

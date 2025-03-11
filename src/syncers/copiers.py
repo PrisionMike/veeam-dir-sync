@@ -34,15 +34,15 @@ def sync_dir(dirpath, dirname, src_dir, replica_path, log_file):
 
 def sync_prune(dirpath, dirnames, filenames, source_path, replica_path, log_file):
     rel_path = path.relpath(dirpath, source_path)
-    replica_dir = path.join(replica_path, rel_path)
+    replica_dirpath = path.join(replica_path, rel_path)
     try:
-        rep_members = listdir(replica_dir)
+        rep_members = listdir(replica_dirpath)
 
         for mem in rep_members:
-            mem_path = path.join(replica_dir, mem)
-            if mem_path not in dirnames and path.isdir(mem_path):
+            mem_path = path.join(replica_dirpath, mem)
+            if mem not in dirnames and path.isdir(mem_path):
                 remove_dir(mem_path, log_file)
-            if mem_path not in filenames and path.isfile(mem_path):
+            if mem not in filenames and path.isfile(mem_path):
                 remove_file(mem_path, log_file)
     except FileNotFoundError:
         pass
