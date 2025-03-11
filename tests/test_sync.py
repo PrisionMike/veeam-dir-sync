@@ -68,6 +68,12 @@ def test_clear_replica_then_invoke():
 
 def test_invoke_replica_surplus():
     result = subprocess.run(
+        ["rm -r replica2/* && rm -r source2/*"], # HARDCODED
+        shell=True,
+        capture_output=True,
+        text=True
+    )
+    result = subprocess.run(
         ["cp -r src-incomp/* source2/ && cp -r src-full/* replica2/"], # HARDCODED
         shell=True,
         capture_output=True,
@@ -81,6 +87,12 @@ def test_invoke_replica_surplus():
     compare_dirs(SRC, REP)
 
 def test_invoke_replica_deficit():
+    result = subprocess.run(
+        ["rm -r replica2/* && rm -r source2/*"], # HARDCODED
+        shell=True,
+        capture_output=True,
+        text=True
+    )
     result = subprocess.run(
         ["cp -r src-incomp/* replica2/ && cp -r src-full/* source2/"], # HARDCODED
         shell=True,
@@ -96,6 +108,12 @@ def test_invoke_replica_deficit():
 
 def test_invoke_alpha_beta():
     result = subprocess.run(
+        ["rm -r replica2/* && rm -r source2/*"], # HARDCODED
+        shell=True,
+        capture_output=True,
+        text=True
+    )
+    result = subprocess.run(
         ["cp -r src-alpha/* replica2/ && cp -r src-beta/* source2/"], # HARDCODED
         shell=True,
         capture_output=True,
@@ -109,6 +127,12 @@ def test_invoke_alpha_beta():
     compare_dirs(SRC, REP)
 
 def test_invoke_beta_alpha():
+    result = subprocess.run(
+        ["rm -r replica2/* && rm -r source2/*"], # HARDCODED
+        shell=True,
+        capture_output=True,
+        text=True
+    )
     result = subprocess.run(
         ["cp -r src-beta/* replica2/ && cp -r src-alpha/* source2/"], # HARDCODED
         shell=True,

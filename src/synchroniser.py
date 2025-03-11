@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 from utils.utils import md5_file
 from my_logging.logging import *
-from syncers.copiers import *
+from syncers.copiers import Synchroniser
 
 SOURCE_DIR = None
 REPLICA_DIR = None
@@ -26,29 +26,29 @@ def populate_globals():
     # REPLICA_DIR = os.getenv("REPLICA_DIR")
     IO_LOG_FILE = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("IO_LOG_FILE")))
 
-def walk_the_dir(dir):
+def sync_the_dirs(syncer: Synchroniser):
     """
     Merkle tree hash. Only root hash is returned. Since we don't have a ready-to-use
     way to detect file changes deeper in the directory structure, the Merkle construction
     is moot. Thus this function IS SIMPLY A DFS traversal of the directory argument.
     """
     dir_hashes = {}
-    for dirpath, dirnames, filenames in os.walk(dir, topdown=False):
+    for dirpath, dirnames, filenames in os.walk(syncer.source_path, topdown=False):
         entries = []
 
         for filename in sorted(filenames):
             fullpath = os.path.join(dirpath, filename)
             file_hash = md5_file(fullpath)
-            sync_file(dirpath, filename, file_hash, SOURCE_DIR, REPLICA_DIR, IO_LOG_FILE)
+            syncer.sync_file(dirpath, filename, file_hash)
             entries.append(filename + file_hash)
 
         for dirname in sorted(dirnames):
             subdir_path = os.path.join(dirpath, dirname)
-            sync_dir(dirpath, dirname, SOURCE_DIR, REPLICA_DIR, IO_LOG_FILE) # For empty dirs.
+            syncer.sync_dir(dirpath, dirname) # For empty dirs.
             if subdir_path in dir_hashes:
                 entries.append(dirname + dir_hashes[subdir_path])
 
-        sync_prune(dirpath, dirnames, filenames, SOURCE_DIR, REPLICA_DIR, IO_LOG_FILE)
+        syncer.sync_prune(dirpath, dirnames, filenames)
         combined = ''.join(entries).encode('utf-8')
         dir_hashes[dirpath] = hashlib.md5(combined).hexdigest()
 
@@ -57,5 +57,6 @@ def walk_the_dir(dir):
 if __name__ == '__main__':
     populate_globals()
     clear_io_log(IO_LOG_FILE)
-    dir_hash = walk_the_dir(SOURCE_DIR)
+    syncer = Synchroniser(SOURCE_DIR, REPLICA_DIR, IO_LOG_FILE)
+    dir_hash = sync_the_dirs(syncer)
     print("Source hash", dir_hash)
