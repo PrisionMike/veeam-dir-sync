@@ -53,10 +53,10 @@ def test_number_of_files_created():
 
 def test_sync_io_entries():
     num_of_invokations = randint(2,10)
-    clear_sync_log()
+    initial_number_of_entries = count_log_lines_in_sync('SYNCED AT')
     for i in range(num_of_invokations):
         call_syncer()
-    assert count_log_lines_in_sync('SYNCED AT') == num_of_invokations
+    assert count_log_lines_in_sync('SYNCED AT') - initial_number_of_entries == num_of_invokations
     
 
 def clear_io_and_call():

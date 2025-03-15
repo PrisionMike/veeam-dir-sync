@@ -4,7 +4,7 @@ import hashlib
 from dotenv import load_dotenv
 
 from utils.utils import md5_file
-from my_logging.logging import *
+from my_logging.logging import MyLogger
 from syncers.copiers import Synchroniser
 
 SOURCE_DIR = None
@@ -55,12 +55,13 @@ def sync_the_dirs(syncer: Synchroniser):
         combined = ''.join(entries).encode('utf-8')
         dir_hashes[dirpath] = hashlib.md5(combined).hexdigest()
 
-    log_sync(SYNC_LOG_FILE)
+    syncer.my_logger.log_sync()
     return dir_hashes[syncer.source_path]
 
 if __name__ == '__main__':
     populate_globals()
-    clear_logs(IO_LOG_FILE)
-    syncer = Synchroniser(SOURCE_DIR, REPLICA_DIR, IO_LOG_FILE, SYNC_LOG_FILE)
+    my_logger = MyLogger(SYNC_LOG_FILE, IO_LOG_FILE)
+    syncer = Synchroniser(SOURCE_DIR, REPLICA_DIR, my_logger)
+    my_logger.clear_io_logs()
     dir_hash = sync_the_dirs(syncer)
     print("Source hash", dir_hash)

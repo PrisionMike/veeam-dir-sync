@@ -1,0 +1,8 @@
+[2025-03-15 02:55:32.746942] --- DIR CREATED  --- /home/strider/veeam-assignment/replica2/dir_VQHpV/dir_pUiQV
+[2025-03-15 02:55:32.747202] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_VQHpV/dir_pUiQV/file_nXwRB.txt --- dad4616b3de95bf8e151947ded48afd5
+[2025-03-15 02:55:32.747517] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_VQHpV/file_RcxwO.txt --- fb173add42a199086649e16eed1616c6
+[2025-03-15 02:55:32.747699] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_VQHpV/file_bsjXi.txt --- 8b6030aad12de877e78315e9035b60a9
+[2025-03-15 02:55:32.747824] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/dir_VQHpV/file_yStEe.txt --- 07a543cf1411d4118fb604a2de905c43
+[2025-03-15 02:55:32.748803] --- FILE CREATED --- /home/strider/veeam-assignment/replica2/./file_ZbByR.txt --- 1f50a759c8349528c9243de42a1e30f8
+[2025-03-15 02:55:32.749035] --- FILE REMOVED --- /home/strider/veeam-assignment/replica2/./file_qdbyn.txt
+[2025-03-15 02:55:32.749131] --- DIR REMOVED  --- /home/strider/veeam-assignment/replica2/./dir_hTmwe
