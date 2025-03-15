@@ -20,5 +20,9 @@ def log_file_removed(full_path, log_file):
     with open(log_file, 'a') as f:
         f.write(f"[{datetime.now()}] --- FILE REMOVED --- {full_path}\n")
 
-def clear_io_log(log_file):
+def log_sync(sync_log_file):
+    with open(sync_log_file, 'a') as f:
+        f.write(f"--- SYNCED AT --- [{datetime.now()}]\n")
+
+def clear_logs(log_file):
     open(log_file,'w').close()

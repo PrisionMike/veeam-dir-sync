@@ -11,12 +11,14 @@ SOURCE_DIR = None
 REPLICA_DIR = None
 ROOT_DIR = None
 IO_LOG_FILE = None
+SYNC_LOG_FILE = None
 
 def populate_globals():
     global SOURCE_DIR
     global ROOT_DIR
     global REPLICA_DIR
     global IO_LOG_FILE
+    global SYNC_LOG_FILE
     
     load_dotenv('/home/strider/veeam-assignment/.env', override=True)
     ROOT_DIR = os.getenv("ROOT_DIR")
@@ -25,6 +27,7 @@ def populate_globals():
     # SOURCE_DIR = os.getenv("SOURCE_DIR")
     # REPLICA_DIR = os.getenv("REPLICA_DIR")
     IO_LOG_FILE = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("IO_LOG_FILE")))
+    SYNC_LOG_FILE = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("SYNC_LOG_FILE")))
 
 def sync_the_dirs(syncer: Synchroniser):
     """
@@ -52,11 +55,12 @@ def sync_the_dirs(syncer: Synchroniser):
         combined = ''.join(entries).encode('utf-8')
         dir_hashes[dirpath] = hashlib.md5(combined).hexdigest()
 
+    log_sync(SYNC_LOG_FILE)
     return dir_hashes[syncer.source_path]
 
 if __name__ == '__main__':
     populate_globals()
-    clear_io_log(IO_LOG_FILE)
-    syncer = Synchroniser(SOURCE_DIR, REPLICA_DIR, IO_LOG_FILE)
+    clear_logs(IO_LOG_FILE)
+    syncer = Synchroniser(SOURCE_DIR, REPLICA_DIR, IO_LOG_FILE, SYNC_LOG_FILE)
     dir_hash = sync_the_dirs(syncer)
     print("Source hash", dir_hash)
