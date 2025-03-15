@@ -1,3 +1,4 @@
+"""Dummy file to test python-daemon. To be deleted."""
 import os
 import daemon
 import time

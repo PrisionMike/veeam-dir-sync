@@ -1,7 +1,7 @@
 import os
 import hashlib
 import subprocess
-import pytest
+import pytest # type: ignore
 
 from random import randint
 from dotenv import load_dotenv
