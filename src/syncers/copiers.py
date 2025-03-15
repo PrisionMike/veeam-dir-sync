@@ -31,7 +31,7 @@ class Synchroniser:
                 log_file_updated(replica_file_path, file_hash, self.log_file)
     
     def sync_dir(self, dirpath, dirname):
-        rel_path = path.relpath(dirpath, self.src_dir)
+        rel_path = path.relpath(dirpath, self.source_path)
         replica_dir = path.join(self.replica_path, rel_path)
         replica_subdir = path.join(replica_dir, dirname)
         if not path.exists(replica_subdir):
@@ -47,9 +47,9 @@ class Synchroniser:
             for mem in rep_members:
                 mem_path = path.join(replica_dirpath, mem)
                 if mem not in dirnames and path.isdir(mem_path):
-                    self.remove_dir(mem_path, self.log_file)
+                    self.remove_dir(mem_path)
                 if mem not in filenames and path.isfile(mem_path):
-                    self.remove_file(mem_path, self.log_file)
+                    self.remove_file(mem_path)
         except FileNotFoundError:
             pass
 

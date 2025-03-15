@@ -52,7 +52,7 @@ def sync_the_dirs(syncer: Synchroniser):
         combined = ''.join(entries).encode('utf-8')
         dir_hashes[dirpath] = hashlib.md5(combined).hexdigest()
 
-    return dir_hashes[dir]
+    return dir_hashes[syncer.source_path]
 
 if __name__ == '__main__':
     populate_globals()
