@@ -1,3 +1,4 @@
 lockfile==0.12.2
+psutil==7.0.0
 python-daemon==3.1.2
 python-dotenv==1.0.1

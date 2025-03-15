@@ -25,9 +25,12 @@ class MyLogger:
         with open(self.io_log_file, 'a') as f:
             f.write(f"[{datetime.now()}] --- FILE REMOVED --- {full_path}\n")
 
-    def log_sync(self):
+    def log_sync(self, file_hash = None):
         with open(self.sync_log_file, 'a') as f:
-            f.write(f"--- SYNCED AT --- [{datetime.now()}]\n")
+            f.write(f"--- SYNCED AT --- [{datetime.now()}]")
+            if file_hash:
+                f.write(f" --- {file_hash}")
+            f.write(f"\n")
 
     def clear_io_logs(self):
         open(self.io_log_file,'w').close()

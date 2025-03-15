@@ -16,11 +16,30 @@ PID_FILE = os.getenv("SYNCER_PID_FILE")
 def test_sync_is_on():
     assert os.getenv("SYNC_ON") == "TRUE"
 
+def get_daemon_pid():
+    """Reads the daemon's PID from the PID file."""
+    try:
+        with open(PID_FILE, "r") as f:
+            return int(f.read().strip())
+    except (FileNotFoundError, ValueError):
+        return None
+    
+def stop_daemon():
+    pid = get_daemon_pid()
+    if pid:
+        os.kill(pid, 15)
+        os.remove(PID_FILE)
+
+
+
 @pytest.fixture
 def start_daemon():
     os.chdir(BASE_DIR)
+    stop_daemon()
     subprocess.run(["python", "veeam-syncer.py"], check=True)
-    time.sleep(2)
+    time.sleep(4)
+    yield
+    stop_daemon()
 
 def test_main_call_starts_daemon(start_daemon):
     """Checks if the daemon starts"""
@@ -30,3 +49,15 @@ def test_main_call_starts_daemon(start_daemon):
         pid = int(f.read().strip())
 
     assert psutil.pid_exists(pid), f"Process with PID {pid} is not running."
+
+def test_daemon_call_idempotence():
+    """Tests multiple invocation of the syncer still lead to only one daemon present."""
+    first_pid = get_daemon_pid()
+    assert first_pid is not None, "Daemon did not start on first call."
+
+    subprocess.run(["python", "veeam-syncer.py"], check=True)
+
+    second_pid = get_daemon_pid()
+    assert second_pid == first_pid, (
+        f"Multiple daemons detected: first PID {first_pid} vs second PID {second_pid}"
+    )

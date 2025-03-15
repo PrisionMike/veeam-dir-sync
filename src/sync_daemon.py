@@ -1,5 +1,6 @@
 import os
 import hashlib
+import time
 
 from dotenv import load_dotenv
 
@@ -12,6 +13,9 @@ REPLICA_DIR = None
 ROOT_DIR = None
 IO_LOG_FILE = None
 SYNC_LOG_FILE = None
+PID_FILE = None
+
+SYNC_INTERVAL_TIME = 1 # Time between 2 sync runs.
 
 def populate_globals():
     global SOURCE_DIR
@@ -19,15 +23,15 @@ def populate_globals():
     global REPLICA_DIR
     global IO_LOG_FILE
     global SYNC_LOG_FILE
+    global PID_FILE
     
     load_dotenv('/home/strider/veeam-assignment/.env', override=True)
     ROOT_DIR = os.getenv("ROOT_DIR")
     SOURCE_DIR = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("SOURCE_DIR")))
     REPLICA_DIR = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("REPLICA_DIR")))
-    # SOURCE_DIR = os.getenv("SOURCE_DIR")
-    # REPLICA_DIR = os.getenv("REPLICA_DIR")
     IO_LOG_FILE = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("IO_LOG_FILE")))
     SYNC_LOG_FILE = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("SYNC_LOG_FILE")))
+    PID_FILE = os.getenv("SYNCER_PID_FILE")
 
 def sync_the_dirs(syncer: Synchroniser):
     """
@@ -55,13 +59,37 @@ def sync_the_dirs(syncer: Synchroniser):
         combined = ''.join(entries).encode('utf-8')
         dir_hashes[dirpath] = hashlib.md5(combined).hexdigest()
 
-    syncer.my_logger.log_sync()
-    return dir_hashes[syncer.source_path]
+    syncer.my_logger.log_sync(dir_hashes[syncer.source_path])
+
+def write_pid():
+    """Writes the daemon's PID to a file."""
+    with open(PID_FILE, "w") as f:
+        f.write(str(os.getpid()))
+
+def read_pid():
+    """Reads the daemon's PID from the PID file."""
+    try:
+        with open(PID_FILE, "r") as f:
+            return int(f.read().strip())
+    except (FileNotFoundError, ValueError):
+        return None
+
+def delete_pid():
+    """Deletes the PID file when stopping the daemon."""
+    if os.path.exists(PID_FILE):
+        os.remove(PID_FILE)
 
 if __name__ == '__main__':
     populate_globals()
     my_logger = MyLogger(SYNC_LOG_FILE, IO_LOG_FILE)
     syncer = Synchroniser(SOURCE_DIR, REPLICA_DIR, my_logger)
     my_logger.clear_io_logs()
-    dir_hash = sync_the_dirs(syncer)
-    print("Source hash", dir_hash)
+    print('In sync_daemon.py now')
+    # with daemon.DaemonContext(working_directory=ROOT_DIR):
+    #     write_pid()
+    #     sync_the_dirs(syncer)
+    #     delete_pid()
+    write_pid()
+    while True:
+        sync_the_dirs(syncer)
+        time.sleep(SYNC_INTERVAL_TIME)
