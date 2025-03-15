@@ -41,6 +41,13 @@ def start_daemon():
     yield
     stop_daemon()
 
+@pytest.fixture
+def start_daemon_dont_stop():
+    os.chdir(BASE_DIR)
+    stop_daemon()
+    subprocess.run(["python", "veeam-syncer.py"], check=True)
+    time.sleep(2) # Expecting 1 sec sync time. So about 2 rounds in this iteration.
+
 def test_main_call_starts_daemon(start_daemon):
     """Checks if the daemon starts"""
     assert os.path.exists(PID_FILE), "PID file was not created."
@@ -61,3 +68,11 @@ def test_daemon_call_idempotence():
     assert second_pid == first_pid, (
         f"Multiple daemons detected: first PID {first_pid} vs second PID {second_pid}"
     )
+
+def test_daemon_stops(start_daemon_dont_stop):
+    pid = get_daemon_pid()
+    result = subprocess.run(["python", "veeam-syncer.py", "stop"], check=True, capture_output=True)
+    print(type(result.stdout))
+    assert result.stdout == b"Synchroniser daemon stopped"
+    assert not psutil.pid_exists(pid)
+    assert not os.path.exists(PID_FILE)
