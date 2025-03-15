@@ -1,18 +1,10 @@
 import os
-import hashlib
 import subprocess
 import pytest # type: ignore
 import time
+import psutil # type: ignore
 
 from dotenv import load_dotenv
-
-def hash_file(filepath):
-    hasher = hashlib.sha256()
-    with open(filepath, 'rb') as f:
-        for chunk in iter(lambda: f.read(8192), b''):
-            hasher.update(chunk)
-    return hasher.hexdigest()
-
 
 load_dotenv('/home/strider/veeam-assignment/.env', override=True)
 
@@ -37,4 +29,4 @@ def test_main_call_starts_daemon(start_daemon):
     with open(PID_FILE, "r") as f:
         pid = int(f.read().strip())
 
-    assert os.path.exists(f"/proc/{pid}"), f"Process with PID {pid} is not running."
+    assert psutil.pid_exists(pid), f"Process with PID {pid} is not running."
