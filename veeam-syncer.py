@@ -32,7 +32,7 @@ def start_daemon():
 
     print("Starting sync daemon...")
     subprocess.Popen(["python", "./src/sync_daemon.py"], start_new_session=True)
-
+    time.sleep(1) # DON'T REMOVE OR THE FOLLOWING IF WOULD FAIL. Functionality unaffected
     if is_daemon_running():
         print(f"Daemon started with PID: {get_daemon_pid()}")
     else:
@@ -56,6 +56,7 @@ def stop_daemon():
             print("Daemon did not stop.")
     except (ProcessLookupError, NoSuchProcess):
         print("Daemon process not found.")
+        print("Daemon is not running.")
     finally:
         if os.path.exists(PID_FILE):
             os.remove(PID_FILE)  # Ensure PID file is removed

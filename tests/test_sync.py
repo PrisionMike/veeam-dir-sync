@@ -4,13 +4,7 @@ import subprocess
 import pytest # type: ignore
 
 from dotenv import load_dotenv
-
-def hash_file(filepath):
-    hasher = hashlib.sha256()
-    with open(filepath, 'rb') as f:
-        for chunk in iter(lambda: f.read(8192), b''):
-            hasher.update(chunk)
-    return hasher.hexdigest()
+from .test_utils import compare_dirs
 
 
 load_dotenv('/home/strider/veeam-assignment/.env', override=True)
@@ -21,23 +15,6 @@ REP = os.path.abspath(os.path.join(BASE_DIR, os.getenv("REPLICA_DIR"))) + "/"
 
 def test_sync_is_on():
     assert os.getenv("SYNC_ON") == "TRUE"
-
-def compare_dirs(src, rep):
-    src_paths = get_all_paths(src)
-    rep_paths = get_all_paths(rep)
-    assert src_paths == rep_paths
-
-def get_all_paths(dir):
-    paths = {}
-    for root, dirs, files in os.walk(dir):
-        for d in dirs:
-            dir_path = os.path.relpath(os.path.join(root, d), dir)
-            paths[dir_path] = None
-
-        for f in files:
-            file_path = os.path.relpath(os.path.join(root, f), dir)
-            paths[file_path] = hash_file(os.path.join(root, f))
-    return paths
 
 @pytest.mark.skip(reason="Does not invoke synchroniser")
 def test_replica_copies_source():
