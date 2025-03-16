@@ -80,8 +80,7 @@ def delete_pid():
     if os.path.exists(PID_FILE):
         os.remove(PID_FILE)
 
-def main():
-    syncer = prepare()
+def daemon(syncer: Synchroniser):
     while True:
         sync_the_dirs(syncer)
         time.sleep(SYNC_INTERVAL_TIME)
@@ -94,9 +93,17 @@ def prepare():
     write_pid()
     return syncer
 
-def mono_shot():
-    syncer = prepare()
+def mono_shot(syncer: Synchroniser):
     sync_the_dirs(syncer)
+
+def main():
+    syncer = prepare()
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "monoshot":
+            mono_shot(syncer)
+    else:
+        daemon(syncer)
+
 
 if __name__ == '__main__':
     main()

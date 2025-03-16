@@ -4,7 +4,7 @@ import subprocess
 import time
 
 from dotenv import load_dotenv
-from psutil import pid_exists, Process # type: ignore
+from psutil import pid_exists, Process, NoSuchProcess # type: ignore
 
 load_dotenv('/home/strider/veeam-assignment/.env', override=True)
 
@@ -54,7 +54,7 @@ def stop_daemon():
             print("Daemon stopped successfully.")
         else:
             print("Daemon did not stop.")
-    except ProcessLookupError:
+    except (ProcessLookupError, NoSuchProcess):
         print("Daemon process not found.")
     finally:
         if os.path.exists(PID_FILE):
@@ -66,11 +66,18 @@ def get_parser():
 
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    subparsers.add_parser("start", help="'start' to launch the synchroniser. 'stop' to stop previously running daemon")
-    subparsers.add_parser("stop", help="'start' to launch the synchroniser. 'stop' to stop previously running daemon")
+    subparsers.add_parser("start", help="Starts the synchroniser")
+    subparsers.add_parser("stop", help="Stops any pre-running synchroniser")
+    subparsers.add_parser("monoshot", help="Runs the syncer once then stop. Stops any pre-existing daemons.")
 
     return parser
 
+def run_once():
+    pid = get_daemon_pid()
+    if pid:
+        stop_daemon()
+    print("Starting single shot synchroniser...")
+    subprocess.Popen(["python", "./src/sync_daemon.py", "monoshot"], start_new_session=True)
 
 def main():
     parser = get_parser()
@@ -80,6 +87,8 @@ def main():
         start_daemon()
     elif args.command == "stop":
         stop_daemon()
+    elif args.command == "monoshot":
+        run_once()
 
 if __name__ == "__main__":
     main()

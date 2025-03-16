@@ -44,12 +44,19 @@ def test_replica_copies_source():
     compare_dirs(SRC, REP)
 
 def test_sync_invoke_with_current_files():
-    result = subprocess.run(
-        ["python", "src/synchroniser.py"],  # Command to run the script
-        capture_output=True,        # Capture stdout and stderr
-        text=True                   # Decode output as text
-    )
+    invoke_monoshot_sync()
     compare_dirs(SRC, REP)
+
+def invoke_monoshot_sync():
+    result = subprocess.run(
+        ["python", "veeam-syncer.py", "monoshot"],
+        capture_output=True,
+        text=True,
+        check=True
+    )
+    # print(result.stdout)
+    # print(result.stderr)
+    # assert False
 
 # @pytest.mark.skip(reason="Freezing source. Can't delete.")
 def test_clear_replica_then_invoke():
@@ -59,11 +66,7 @@ def test_clear_replica_then_invoke():
         capture_output=True,
         text=True
     )
-    result = subprocess.run(
-        ["python", "src/synchroniser.py"],
-        capture_output=True,
-        text=True
-    )
+    invoke_monoshot_sync()
     compare_dirs(SRC, REP)
 
 def test_invoke_replica_surplus():
@@ -79,11 +82,7 @@ def test_invoke_replica_surplus():
         capture_output=True,
         text=True
     )
-    result = subprocess.run(
-        ["python", "src/synchroniser.py"],
-        capture_output=True,
-        text=True
-    )
+    invoke_monoshot_sync()
     compare_dirs(SRC, REP)
 
 def test_invoke_replica_deficit():
@@ -99,11 +98,7 @@ def test_invoke_replica_deficit():
         capture_output=True,
         text=True
     )
-    result = subprocess.run(
-        ["python", "src/synchroniser.py"],
-        capture_output=True,
-        text=True
-    )
+    invoke_monoshot_sync()
     compare_dirs(SRC, REP)
 
 def test_invoke_alpha_beta():
@@ -119,11 +114,7 @@ def test_invoke_alpha_beta():
         capture_output=True,
         text=True
     )
-    result = subprocess.run(
-        ["python", "src/synchroniser.py"],
-        capture_output=True,
-        text=True
-    )
+    invoke_monoshot_sync()
     compare_dirs(SRC, REP)
 
 def test_invoke_beta_alpha():
@@ -139,9 +130,5 @@ def test_invoke_beta_alpha():
         capture_output=True,
         text=True
     )
-    result = subprocess.run(
-        ["python", "src/synchroniser.py"],
-        capture_output=True,
-        text=True
-    )
+    invoke_monoshot_sync()
     compare_dirs(SRC, REP)
