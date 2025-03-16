@@ -27,16 +27,19 @@ def get_daemon_pid():
 def stop_daemon():
     pid = get_daemon_pid()
     if pid:
-        os.kill(pid, 15)
-        os.remove(PID_FILE)
-
-
+        try:
+            os.kill(pid, 15)
+        except ProcessLookupError:
+            print(f"old pid in file.\n {pid} not found. Removing file")
+        finally:
+            os.remove(PID_FILE)
+        # time.sleep(2)
 
 @pytest.fixture
 def start_daemon():
     os.chdir(BASE_DIR)
     stop_daemon()
-    subprocess.run(["python", "veeam-syncer.py"], check=True)
+    subprocess.run(["python", "veeam-syncer.py", "start"], check=True)
     time.sleep(4)
     yield
     stop_daemon()
@@ -45,10 +48,10 @@ def start_daemon():
 def start_daemon_dont_stop():
     os.chdir(BASE_DIR)
     stop_daemon()
-    subprocess.run(["python", "veeam-syncer.py"], check=True)
+    subprocess.run(["python", "veeam-syncer.py",  "start"], check=True)
     time.sleep(2) # Expecting 1 sec sync time. So about 2 rounds in this iteration.
 
-def test_main_call_starts_daemon(start_daemon):
+def test_main_call_starts_daemon(start_daemon: None):
     """Checks if the daemon starts"""
     assert os.path.exists(PID_FILE), "PID file was not created."
 
@@ -57,22 +60,23 @@ def test_main_call_starts_daemon(start_daemon):
 
     assert psutil.pid_exists(pid), f"Process with PID {pid} is not running."
 
-def test_daemon_call_idempotence():
+def test_daemon_call_idempotence(start_daemon: None):
     """Tests multiple invocation of the syncer still lead to only one daemon present."""
     first_pid = get_daemon_pid()
     assert first_pid is not None, "Daemon did not start on first call."
 
-    subprocess.run(["python", "veeam-syncer.py"], check=True)
+    result = subprocess.run(["python", "veeam-syncer.py", "start"], check=True, capture_output=True, text=True)
+
+    assert "Daemon already running at:" in result.stdout, "Output warning missing"
 
     second_pid = get_daemon_pid()
     assert second_pid == first_pid, (
         f"Multiple daemons detected: first PID {first_pid} vs second PID {second_pid}"
     )
 
-def test_daemon_stops(start_daemon_dont_stop):
+def test_daemon_stops(start_daemon_dont_stop: None):
     pid = get_daemon_pid()
-    result = subprocess.run(["python", "veeam-syncer.py", "stop"], check=True, capture_output=True)
-    print(type(result.stdout))
-    assert result.stdout == b"Synchroniser daemon stopped"
+    result = subprocess.run(["python", "veeam-syncer.py", "stop"], check=True, capture_output=True, text=True)
+    assert "Daemon stopped successfully." in result.stdout
     assert not psutil.pid_exists(pid)
     assert not os.path.exists(PID_FILE)

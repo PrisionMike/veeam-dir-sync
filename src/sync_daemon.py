@@ -1,5 +1,6 @@
 import os
 import hashlib
+import sys
 import time
 
 from dotenv import load_dotenv
@@ -79,17 +80,23 @@ def delete_pid():
     if os.path.exists(PID_FILE):
         os.remove(PID_FILE)
 
-if __name__ == '__main__':
+def main():
+    syncer = prepare()
+    while True:
+        sync_the_dirs(syncer)
+        time.sleep(SYNC_INTERVAL_TIME)
+
+def prepare():
     populate_globals()
     my_logger = MyLogger(SYNC_LOG_FILE, IO_LOG_FILE)
     syncer = Synchroniser(SOURCE_DIR, REPLICA_DIR, my_logger)
     my_logger.clear_io_logs()
-    print('In sync_daemon.py now')
-    # with daemon.DaemonContext(working_directory=ROOT_DIR):
-    #     write_pid()
-    #     sync_the_dirs(syncer)
-    #     delete_pid()
     write_pid()
-    while True:
-        sync_the_dirs(syncer)
-        time.sleep(SYNC_INTERVAL_TIME)
+    return syncer
+
+def mono_shot():
+    syncer = prepare()
+    sync_the_dirs(syncer)
+
+if __name__ == '__main__':
+    main()

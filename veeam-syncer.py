@@ -1,6 +1,7 @@
 import os
-import daemon
+import argparse
 import subprocess
+import time
 
 from dotenv import load_dotenv
 from psutil import pid_exists, Process # type: ignore
@@ -48,6 +49,7 @@ def stop_daemon():
     try:
         daemon = Process(pid)
         daemon.terminate()
+        time.sleep(2)           # DON'T REMOVE. WON'T WORK.
         if not is_daemon_running():
             print("Daemon stopped successfully.")
         else:
@@ -58,13 +60,26 @@ def stop_daemon():
         if os.path.exists(PID_FILE):
             os.remove(PID_FILE)  # Ensure PID file is removed
 
+def get_parser():
+    parser = argparse.ArgumentParser(description="Veeam demo synchronisation program."
+    "Does a continuous one-way synchronisation of the source directory to the replica directory.")
+
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    subparsers.add_parser("start", help="'start' to launch the synchroniser. 'stop' to stop previously running daemon")
+    subparsers.add_parser("stop", help="'start' to launch the synchroniser. 'stop' to stop previously running daemon")
+
+    return parser
+
+
+def main():
+    parser = get_parser()
+    args = parser.parse_args()
+
+    if args.command == "start":
+        start_daemon()
+    elif args.command == "stop":
+        stop_daemon()
+
 if __name__ == "__main__":
-    # import sys
-    # if len(sys.argv) != 2 or sys.argv[1] not in ["start", "stop"]:
-    #     print("Usage: python daemon_manager.py [start|stop]")
-    # else:
-    #     if sys.argv[1] == "start":
-    #         start_daemon()
-    #     elif sys.argv[1] == "stop":
-    #         stop_daemon()
-    start_daemon()
+    main()

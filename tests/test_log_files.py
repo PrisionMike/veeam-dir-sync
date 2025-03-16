@@ -6,6 +6,8 @@ import pytest # type: ignore
 from random import randint
 from dotenv import load_dotenv
 
+# from src.sync_daemon import mono_shot
+
 def hash_file(filepath):
     hasher = hashlib.sha256()
     with open(filepath, 'rb') as f:
@@ -86,8 +88,10 @@ def clear_sync_log():
     )
 
 def call_syncer():
-    return subprocess.run(
-        ["python", "src/synchroniser.py"],
+    result = subprocess.run(
+        ["python", "veeam-syncer.py", "monoshot"],
         capture_output=True,
-        text=True
+        text=True,
+        check=True
     )
+    assert "Daemon started with PID: " in result.stdout
