@@ -50,8 +50,8 @@ def test_monoshot(prepare_and_compare_dirs: dict[str, str]):
     result = subprocess.run(
         ["python", "veeam-syncer.py",
          "monoshot",
-         "--source " + prepare_and_compare_dirs["src_dir"],
-         "--replica " + prepare_and_compare_dirs["rep_dir"],
+         "--source", prepare_and_compare_dirs["src_dir"],
+         "--replica", prepare_and_compare_dirs["rep_dir"],
          ],
         capture_output=True,
         text=True,
@@ -64,8 +64,8 @@ def test_start(prepare_and_compare_dirs: dict[str, str]):
     result = subprocess.run(
         ["python", "veeam-syncer.py",
          "start",
-         "--source " + prepare_and_compare_dirs["src_dir"],
-         "--replica " + prepare_and_compare_dirs["rep_dir"],
+         "--source", prepare_and_compare_dirs["src_dir"],
+         "--replica", prepare_and_compare_dirs["rep_dir"],
          ],
         capture_output=True,
         text=True,

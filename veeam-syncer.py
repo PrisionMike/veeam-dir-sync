@@ -61,18 +61,6 @@ def stop_daemon():
         if os.path.exists(PID_FILE):
             os.remove(PID_FILE)  # Ensure PID file is removed
 
-def get_parser():
-    parser = argparse.ArgumentParser(description="Veeam demo synchronisation program."
-    "Does a continuous one-way synchronisation of the source directory to the replica directory.")
-
-    subparsers = parser.add_subparsers(dest="command", required=True)
-
-    subparsers.add_parser("start", help="Starts the synchroniser")
-    subparsers.add_parser("stop", help="Stops any pre-running synchroniser")
-    subparsers.add_parser("monoshot", help="Runs the syncer once then stop. Stops any pre-existing daemons.")
-
-    return parser
-
 def run_once():
     pid = get_daemon_pid()
     if pid:
@@ -80,9 +68,34 @@ def run_once():
     print("Starting single shot synchroniser...")
     subprocess.Popen(["python", "./src/sync_daemon.py", "monoshot"], start_new_session=True)
 
+def get_parser():
+    parser = argparse.ArgumentParser(description="Veeam demo synchronisation program."
+    "Does a continuous one-way synchronisation of the source directory to the replica directory.")
+
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    start_subparser = subparsers.add_parser("start", help="Starts the synchroniser")
+    start_subparser.add_argument("--source", "-s", required=True, help="Path to the source directory")
+    start_subparser.add_argument("--replica", "-r", required=True, help="Path to the destination (replica) directory")
+
+    subparsers.add_parser("stop", help="Stops any pre-running synchroniser")
+    
+    monoshot_subparser = subparsers.add_parser("monoshot", help="Runs the syncer once then stop. Stops any pre-existing daemons.")
+    monoshot_subparser.add_argument("--source", "-s", required=True, help="Path to the source directory")
+    monoshot_subparser.add_argument("--replica", "-r", required=True, help="Path to the destination (replica) directory")
+
+    return parser
+
+def prepare_env_variables(args):
+    os.environ["ROOT_DIR"] = os.getcwd()
+    if hasattr(args, "source") and hasattr(args, "replica"):
+        os.environ["SOURCE_DIR"] = args.source
+        os.environ["REPLICA_DIR"] = args.replica
+
 def main():
     parser = get_parser()
     args = parser.parse_args()
+    prepare_env_variables(args)
 
     if args.command == "start":
         start_daemon()

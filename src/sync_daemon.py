@@ -26,10 +26,12 @@ def populate_globals():
     global SYNC_LOG_FILE
     global PID_FILE
     
-    load_dotenv('/home/strider/veeam-assignment/.env', override=True)
+    # load_dotenv('/home/strider/veeam-assignment/.env', override=False)
     ROOT_DIR = os.getenv("ROOT_DIR")
-    SOURCE_DIR = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("SOURCE_DIR")))
-    REPLICA_DIR = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("REPLICA_DIR")))
+    SOURCE_DIR = os.getenv("SOURCE_DIR")
+    REPLICA_DIR = os.getenv("REPLICA_DIR")
+    # SOURCE_DIR = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("SOURCE_DIR")))
+    # REPLICA_DIR = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("REPLICA_DIR")))
     IO_LOG_FILE = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("IO_LOG_FILE")))
     SYNC_LOG_FILE = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("SYNC_LOG_FILE")))
     PID_FILE = os.getenv("SYNCER_PID_FILE")
@@ -101,6 +103,8 @@ def main():
     if len(sys.argv) > 1:
         if sys.argv[1] == "monoshot":
             mono_shot(syncer)
+        elif sys.argv[1] == "start":
+            daemon(syncer)
     else:
         daemon(syncer)
 
