@@ -19,8 +19,8 @@ def hash_file(filepath):
 load_dotenv('/home/strider/veeam-assignment/.env', override=True)
 
 BASE_DIR = os.getenv("ROOT_DIR")    
-SRC = os.path.join(BASE_DIR, os.getenv("SOURCE_DIR"))
-REP = os.path.join(BASE_DIR, os.getenv("REPLICA_DIR"))
+SRC = os.path.abspath(os.path.join(BASE_DIR, os.getenv("SOURCE_DIR"))) + "/"
+REP = os.path.abspath(os.path.join(BASE_DIR, os.getenv("REPLICA_DIR"))) + "/"
 IO_LOG_FILE = os.path.join(BASE_DIR, os.getenv("IO_LOG_FILE"))
 SYNC_LOG_FILE = os.path.join(BASE_DIR, os.getenv("SYNC_LOG_FILE"))
 
@@ -67,12 +67,14 @@ def clear_io_and_call():
 
 def clear_io_log():
     open(IO_LOG_FILE, 'w').close() # Clearing log file.
-    result = subprocess.run(
-        ["rm -r replica2/*"], # HARD CODED
-        shell=True,
-        capture_output=True,
-        text=True
-    )
+    if os.listdir(REP):
+        subprocess.run(
+            ["rm -r " + str(REP)+ "*"],
+            shell=True,
+            capture_output=True,
+            text=True,
+            check=True
+        )
 
 def clear_sync_logs_and_call():
     clear_sync_log()
@@ -80,12 +82,14 @@ def clear_sync_logs_and_call():
 
 def clear_sync_log():
     open(SYNC_LOG_FILE, 'w').close() # Clearing log file.
-    return subprocess.run(
-        ["rm -r replica2/*"], # HARD CODED
-        shell=True,
-        capture_output=True,
-        text=True
-    )
+    if os.listdir(REP):
+        subprocess.run(
+            ["rm -r " + str(REP)+ "*"],
+            shell=True,
+            capture_output=True,
+            text=True,
+            check=True
+        )
 
 def call_syncer():
     result = subprocess.run(
