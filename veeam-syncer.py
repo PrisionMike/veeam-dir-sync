@@ -8,8 +8,8 @@ from psutil import pid_exists, Process, NoSuchProcess # type: ignore
 
 load_dotenv('/home/strider/veeam-assignment/.env', override=True)
 
-# Only used by this program manager file. Not populated by populate_globals()
-PID_FILE = os.getenv("SYNCER_PID_FILE")
+PID_FILE = "/tmp/veeam-syncer.pid"
+ENV_FILE = os.path.abspath("./veeam-syncer.env")
 
 def get_daemon_pid():
     """Reads the daemon's PID from the PID file."""
@@ -86,11 +86,36 @@ def get_parser():
 
     return parser
 
+def write_env_file(env_dict):
+    """Writes the environment variables to veeam-syncer.env"""
+    env_lines = [f"{key}={value}" for key, value in env_dict.items()]
+    content = "\n".join(sorted(env_lines))  # Sorting for consistency
+
+    with open(ENV_FILE, "w", encoding="utf-8") as f:
+        f.write(content + "\n")  # Ensure newline at end
+
+def read_env_file():
+    """Reads the existing .env file and returns a dictionary of environment variables."""
+    env_vars = {}
+    if os.path.exists(ENV_FILE):
+        with open(ENV_FILE, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#"):
+                    key, _, value = line.partition("=")
+                    env_vars[key.strip()] = value.strip()
+    return env_vars
+
 def prepare_env_variables(args):
-    os.environ["ROOT_DIR"] = os.getcwd()
+    """Prepares and writes environment variables to veeam-syncer.env"""
+    env_vars = read_env_file()
+    
+    env_vars["ROOT_DIR"] = os.getcwd()
     if hasattr(args, "source") and hasattr(args, "replica"):
-        os.environ["SOURCE_DIR"] = args.source
-        os.environ["REPLICA_DIR"] = args.replica
+        env_vars["SOURCE_DIR"] = args.source
+        env_vars["REPLICA_DIR"] = args.replica
+
+    write_env_file(env_vars)
 
 def main():
     parser = get_parser()

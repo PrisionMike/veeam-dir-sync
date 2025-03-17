@@ -6,7 +6,7 @@ import psutil # type: ignore
 
 from dotenv import load_dotenv
 
-load_dotenv('/home/strider/veeam-assignment/.env', override=True)
+load_dotenv('./veeam-syncer.env', override=True) # Tests need to be run from root dir.
 
 BASE_DIR = os.getenv("ROOT_DIR")    
 SRC = os.path.join(BASE_DIR, os.getenv("SOURCE_DIR"))
@@ -39,7 +39,10 @@ def stop_daemon():
 def start_daemon():
     os.chdir(BASE_DIR)
     stop_daemon()
-    subprocess.run(["python", "veeam-syncer.py", "start"], check=True)
+    subprocess.run(["python", "veeam-syncer.py", "start",
+                    "--source", "/home/strider/veeam-assignment/test-payloads/source2",
+                    "--replica", "/home/strider/veeam-assignment/test-payloads/replica2"],
+                    check=True)
     time.sleep(4)
     yield
     stop_daemon()
@@ -48,7 +51,10 @@ def start_daemon():
 def start_daemon_dont_stop():
     os.chdir(BASE_DIR)
     stop_daemon()
-    subprocess.run(["python", "veeam-syncer.py",  "start"], check=True)
+    subprocess.run(["python", "veeam-syncer.py", "start",
+                    "--source", "/home/strider/veeam-assignment/test-payloads/source2",
+                    "--replica", "/home/strider/veeam-assignment/test-payloads/replica2"],
+                    check=True)    
     time.sleep(2) # Expecting 1 sec sync time. So about 2 rounds in this iteration.
 
 def test_main_call_starts_daemon(start_daemon: None):
@@ -65,7 +71,12 @@ def test_daemon_call_idempotence(start_daemon: None):
     first_pid = get_daemon_pid()
     assert first_pid is not None, "Daemon did not start on first call."
 
-    result = subprocess.run(["python", "veeam-syncer.py", "start"], check=True, capture_output=True, text=True)
+    result = subprocess.run(["python", "veeam-syncer.py", "start",
+                    "--source", "/home/strider/veeam-assignment/test-payloads/source2",
+                    "--replica", "/home/strider/veeam-assignment/test-payloads/replica2"],
+                    check=True,
+                    text=True,
+                    capture_output=True)
 
     assert "Daemon already running at:" in result.stdout, "Output warning missing"
 

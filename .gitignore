@@ -3,4 +3,5 @@ source2
 replica2
 src-incomp
 src-full
+./tests/__pycache__/
 **/__pycache__/

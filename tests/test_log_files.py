@@ -16,7 +16,7 @@ def hash_file(filepath):
     return hasher.hexdigest()
 
 
-load_dotenv('/home/strider/veeam-assignment/.env', override=True)
+load_dotenv('./veeam-syncer.env', override=True) # Tests need to be run from root dir.
 
 BASE_DIR = os.getenv("ROOT_DIR")    
 SRC = os.path.abspath(os.path.join(BASE_DIR, os.getenv("SOURCE_DIR"))) + "/"
@@ -52,6 +52,7 @@ def test_number_of_files_created():
     clear_io_and_call()
     src_file_count = count_files(SRC)
     assert count_log_lines('FILE CREATED') == src_file_count
+
 
 def test_sync_io_entries():
     num_of_invokations = randint(2,10)
@@ -93,11 +94,13 @@ def clear_sync_log():
 
 def call_syncer():
     result = subprocess.run(
-        ["python", "veeam-syncer.py", "monoshot"],
+        ["python", "veeam-syncer.py",
+         "monoshot",
+         "--source", SRC,
+         "--replica", REP,
+         ],
         capture_output=True,
         text=True,
         check=True
     )
-    # print(result.stdout)
-    # print(result.stderr)
-    # assert False
+    assert "Starting single shot synchroniser" in result.stdout, result.stderr

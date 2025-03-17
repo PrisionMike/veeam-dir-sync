@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from .test_utils import compare_dirs
 
 
-load_dotenv('/home/strider/veeam-assignment/.env', override=True)
+load_dotenv('./veeam-syncer.env', override=True) # Tests need to be run from root dir.
 
 BASE_DIR = os.getenv("ROOT_DIR")    
 SRC = os.path.abspath(os.path.join(BASE_DIR, os.getenv("SOURCE_DIR"))) + "/"
@@ -25,15 +25,17 @@ def test_sync_invoke_with_current_files():
     compare_dirs(SRC, REP)
 
 def invoke_monoshot_sync():
-    result = subprocess.run(
-        ["python", "veeam-syncer.py", "monoshot"],
+   result = subprocess.run(
+        ["python", "veeam-syncer.py",
+         "monoshot",
+         "--source", SRC,
+         "--replica", REP,
+         ],
         capture_output=True,
         text=True,
         check=True
     )
-    # print(result.stdout)
-    # print(result.stderr)
-    # assert False
+   assert "Starting single shot synchroniser" in result.stdout, result.stderr
 
 # @pytest.mark.skip(reason="Freezing source. Can't delete.")
 def test_clear_replica_then_invoke():
