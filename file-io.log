@@ -1,36 +1,37 @@
-[2025-03-18 01:31:33.686553] --- DIR CREATED  --- /home/strider/veeam-assignment/test-payloads/replica/dir_nPqUp/dir_JEwKC
-[2025-03-18 01:31:33.686738] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/replica/dir_mUqRB/file_sWbEk.txt
-[2025-03-18 01:31:33.686845] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/replica/dir_mUqRB/file_ditqN.txt
-[2025-03-18 01:31:33.687135] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_DTLBC.txt --- 4485d1a5808630bab6e87053db059a23
-[2025-03-18 01:31:33.687501] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_JRXiR.txt --- 8a9baa0da042cbb70333c31966ceac94
-[2025-03-18 01:31:33.687709] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_Jojrh.txt --- d61488cb18aa8cc77bb60fcf9ec09adc
-[2025-03-18 01:31:33.687881] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_LldXn.txt --- 21d9cd21d8b7fdca1c28c73b3f13af12
-[2025-03-18 01:31:33.688049] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_OwPvM.txt --- 619bf0e4b048bd1241fbcbab1acee1bf
-[2025-03-18 01:31:33.688220] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_PcASr.txt --- aa96a3a1ce47dd6aa299a22777986eac
-[2025-03-18 01:31:33.688508] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_UfRlD.txt --- 9b2598ce917942450215f3dca47ea1c4
-[2025-03-18 01:31:33.688671] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_UhFcL.txt --- 368f75c5dc07df0c38ba9d2ec94f3e2b
-[2025-03-18 01:31:33.688836] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_UtoZp.txt --- e21870a179ef0ad6d85197f172b7e551
-[2025-03-18 01:31:33.689061] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_VxGiy.txt --- d8e2de3af43804455719ff298ac59af2
-[2025-03-18 01:31:33.689223] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_XdaFA.txt --- 9ca7a93f422c7265cbd107d61723a650
-[2025-03-18 01:31:33.689392] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_XwoDX.txt --- 9ce6a2557d1910eb33fae71136c3f44a
-[2025-03-18 01:31:33.689689] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_cpIfV.txt --- b812154dff9e39cb924aea813538486f
-[2025-03-18 01:31:33.689975] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_fSUTY.txt --- 43290ab891b64cc784d63ceab81a16d8
-[2025-03-18 01:31:33.690184] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_hGCyO.txt --- 96ff101b001422eec7a00d873b4a8205
-[2025-03-18 01:31:33.690398] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_hbYgq.txt --- ec144dcb1e069a5f7be2ca65d91eb70a
-[2025-03-18 01:31:33.690610] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_izugj.txt --- 3809013d33fb45525d2784cb3096fdfc
-[2025-03-18 01:31:33.690893] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_kGhQS.txt --- 9384ab25733613dde31add5e1cea8215
-[2025-03-18 01:31:33.691395] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_nUKpp.txt --- a295d359d6611070f32d1c7b39ecce30
-[2025-03-18 01:31:33.692073] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_oIyZc.txt --- 5339285843e3fff82eb0070a60f5cc5c
-[2025-03-18 01:31:33.692652] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_uAiGw.txt --- 32d00348d3beedf84fa35d98180e83e4
-[2025-03-18 01:31:33.693027] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/replica/./file_vFEtp.txt --- 33d2d12245548969c39d0eb3b0e277d1
-[2025-03-18 01:31:33.693740] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/replica/./file_qJCcG.txt
-[2025-03-18 01:31:33.694130] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/replica/./file_sIKaz.txt
-[2025-03-18 01:31:33.694411] --- DIR REMOVED  --- /home/strider/veeam-assignment/test-payloads/replica/./dir_eVldR
-[2025-03-18 01:31:33.694953] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/replica/./file_ISgeH.txt
-[2025-03-18 01:31:33.695128] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/replica/./file_qcLmR.txt
-[2025-03-18 01:31:33.695270] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/replica/./file_PrxcN.txt
-[2025-03-18 01:31:33.695397] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/replica/./file_heVVI.txt
-[2025-03-18 01:31:33.695500] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/replica/./file_ZrDud.txt
-[2025-03-18 01:31:33.695582] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/replica/./file_EGqHi.txt
-[2025-03-18 01:31:33.695694] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/replica/./file_hDpcI.txt
-[2025-03-18 01:31:33.695851] --- DIR REMOVED  --- /home/strider/veeam-assignment/test-payloads/replica/./dir_dZtDG
+[2025-03-18 03:42:12.193659] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_KeVlE.txt --- 6e36ef9bfc909b42db471b5229f02f45
+[2025-03-18 03:42:12.193922] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_QhSRg.txt --- c1a279f1fe8889dafe0fb9aa8a44d5d3
+[2025-03-18 03:42:12.194147] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_SgwDN.txt --- 9b1d5cdbc07b85dc3dfb7b442a127137
+[2025-03-18 03:42:12.194368] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_cbSbL.txt --- da26dd05791de872a4d579b47dc8dd95
+[2025-03-18 03:42:12.194597] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_gjTsw.txt --- 5206b02a68eea2702693f158cc574aed
+[2025-03-18 03:42:12.194805] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_roPyF.txt --- 559642617811a94e023954dc44d6c45d
+[2025-03-18 03:42:12.195013] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_vWAhb.txt --- a8d420961705ef2f5d1b13795d4a9cbd
+[2025-03-18 03:42:12.195243] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_zCkxH.txt --- 5f30cda064a9f68928a9de7f3b5fdac1
+[2025-03-18 03:42:12.195461] --- FILE CREATED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_zpUyw.txt --- 0d6906fb44e8af26e830ff84e1e9dd2c
+[2025-03-18 03:42:12.195611] --- DIR CREATED  --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./dir_iNtiS
+[2025-03-18 03:42:12.195737] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_voChY.txt
+[2025-03-18 03:42:12.195843] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_NsVuH.txt
+[2025-03-18 03:42:12.195936] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_MtnDy.txt
+[2025-03-18 03:42:12.196015] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_SjOzc.txt
+[2025-03-18 03:42:12.196094] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_Fjwwg.txt
+[2025-03-18 03:42:12.196169] --- DIR REMOVED  --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./dir_SeiEv
+[2025-03-18 03:42:12.196444] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_gZgBw.txt
+[2025-03-18 03:42:12.196527] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_lnwsO.txt
+[2025-03-18 03:42:12.196625] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_uaAsC.txt
+[2025-03-18 03:42:12.196701] --- DIR REMOVED  --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./dir_YKkka
+[2025-03-18 03:42:12.196843] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_LeVSX.txt
+[2025-03-18 03:42:12.196924] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_TRkke.txt
+[2025-03-18 03:42:12.197012] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_NRopB.txt
+[2025-03-18 03:42:12.197090] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_HuUnQ.txt
+[2025-03-18 03:42:12.197177] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_sPxSY.txt
+[2025-03-18 03:42:12.197261] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_FwdCA.txt
+[2025-03-18 03:42:12.197342] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_ekXxb.txt
+[2025-03-18 03:42:12.197409] --- DIR REMOVED  --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./dir_dHCyX
+[2025-03-18 03:42:12.197745] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_OFSeX.txt
+[2025-03-18 03:42:12.197818] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_elGRc.txt
+[2025-03-18 03:42:12.197888] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_COmVT.txt
+[2025-03-18 03:42:12.197971] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_ozwae.txt
+[2025-03-18 03:42:12.198044] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_sPlHz.txt
+[2025-03-18 03:42:12.198107] --- DIR REMOVED  --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./dir_KzMmF
+[2025-03-18 03:42:12.198325] --- DIR REMOVED  --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./dir_xfIZG
+[2025-03-18 03:42:12.198446] --- FILE REMOVED --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./file_pRwPN.txt
+[2025-03-18 03:42:12.198512] --- DIR REMOVED  --- /home/strider/veeam-assignment/test-payloads/HxIjXwboHA/./dir_DYXBU

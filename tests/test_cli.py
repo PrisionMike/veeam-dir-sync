@@ -17,13 +17,13 @@ BASE_DIR = os.getenv("ROOT_DIR")
 def prepare_and_compare_dirs():
     os.chdir(BASE_DIR)
     payload_dirs = './test-payloads/'
-    src_dir = payload_dirs + ''.join(random.choices(string.ascii_letters, k=10))
-    rep_dir = payload_dirs + ''.join(random.choices(string.ascii_letters, k=10))
-    os.makedirs(payload_dirs + src_dir, exist_ok=False)
-    os.makedirs(payload_dirs + rep_dir, exist_ok=False)
+    src_dir = os.path.abspath(payload_dirs + ''.join(random.choices(string.ascii_letters, k=10)))
+    rep_dir = os.path.abspath(payload_dirs + ''.join(random.choices(string.ascii_letters, k=10)))
+    os.makedirs(src_dir, exist_ok=True)
+    os.makedirs(rep_dir, exist_ok=True)
 
-    shutil.copytree(payload_dirs + 'src-alpha/', src_dir)
-    shutil.copytree(payload_dirs + 'src-beta/', rep_dir)
+    shutil.copytree(payload_dirs + 'src-alpha/', src_dir, dirs_exist_ok=True)
+    shutil.copytree(payload_dirs + 'src-beta/', rep_dir, dirs_exist_ok=True)
 
     sut_dirs = {
         "src_dir": os.path.abspath(src_dir),
@@ -32,7 +32,7 @@ def prepare_and_compare_dirs():
 
     yield sut_dirs
     time.sleep(4)
-    assert compare_dirs(src_dir, rep_dir)
+    compare_dirs(src_dir, rep_dir)
 
     shutil.rmtree(src_dir)
     shutil.rmtree(rep_dir)

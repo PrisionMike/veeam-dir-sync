@@ -8,15 +8,15 @@ import shutil
 from dotenv import load_dotenv
 from datetime import datetime
 
-INTERVAL = 5
+INTERVAL = 5 # HARDCODED
 
-BASE_DIR = "./test-payloads/source"
+BASE_DIR = "./test-payloads/src-full"
 
 def random_string(length=10):
     """Generate a random string of given length."""
     return ''.join(random.choices(string.ascii_letters, k=length))
 
-def create_random_structure(base_dir, depth=2, max_files=20, file_probability=0.8):
+def create_random_structure(base_dir, depth=2, max_files=10, file_probability=0.7):
     """
     Creates a nested directory structure under base_dir.
     At each level, with a given probability, it creates a random number of files.

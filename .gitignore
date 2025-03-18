@@ -1,10 +1,5 @@
 # .env
-source2
-replica2
-src-incomp
-src-full
 veeam-syncer.env.bkp
-test-payloads/*
 .vscode/
 ./*.log
 ./tests/__pycache__/

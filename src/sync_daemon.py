@@ -34,7 +34,7 @@ def populate_globals():
     REPLICA_DIR = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("REPLICA_DIR")))
     IO_LOG_FILE = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("IO_LOG_FILE")))
     SYNC_LOG_FILE = os.path.normpath(os.path.join(ROOT_DIR, os.getenv("SYNC_LOG_FILE")))
-    PID_FILE = os.getenv("SYNCER_PID_FILE")
+    PID_FILE = os.getenv("PID_FILE")
 
 def sync_the_dirs(syncer: Synchroniser):
     """

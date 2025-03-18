@@ -18,10 +18,6 @@ def test_sync_is_on():
 
 def test_instant_compare():
     compare_dirs(SRC, REP)
-    
-@pytest.mark.skip(reason="Does not invoke synchroniser")
-def test_replica_copies_source():
-    compare_dirs(SRC, REP)
 
 def test_sync_invoke_with_current_files():
     invoke_monoshot_sync()

@@ -114,6 +114,7 @@ def prepare_env_variables(args):
     """Prepares and writes environment variables to veeam-syncer.env"""
     env_vars = read_env_file() 
     env_vars["ROOT_DIR"] = os.getcwd()
+    env_vars["PID_FILE"] = PID_FILE
     
     if hasattr(args, "source"):
         env_vars["SOURCE_DIR"] = args.source
