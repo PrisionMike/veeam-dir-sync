@@ -16,6 +16,9 @@ REP = os.path.abspath(os.path.join(BASE_DIR, os.getenv("REPLICA_DIR"))) + "/"
 def test_sync_is_on():
     assert os.getenv("SYNC_ON") == "TRUE"
 
+def test_instant_compare():
+    compare_dirs(SRC, REP)
+    
 @pytest.mark.skip(reason="Does not invoke synchroniser")
 def test_replica_copies_source():
     compare_dirs(SRC, REP)

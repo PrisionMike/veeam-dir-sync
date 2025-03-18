@@ -92,6 +92,7 @@ def prepare():
     my_logger = MyLogger(SYNC_LOG_FILE, IO_LOG_FILE)
     syncer = Synchroniser(SOURCE_DIR, REPLICA_DIR, my_logger)
     my_logger.clear_io_logs()
+    my_logger.clear_sync_logs()
     write_pid()
     return syncer
 

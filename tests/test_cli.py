@@ -31,6 +31,7 @@ def prepare_and_compare_dirs():
     }
 
     yield sut_dirs
+    time.sleep(4)
     assert compare_dirs(src_dir, rep_dir)
 
     shutil.rmtree(src_dir)
@@ -70,9 +71,52 @@ def test_start(prepare_and_compare_dirs: dict[str, str]):
          "--source", prepare_and_compare_dirs["src_dir"],
          "--replica", prepare_and_compare_dirs["rep_dir"],
          ],
+        start_new_session=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True
     )
     stdout, stderr = result.communicate(timeout=9)
     assert "Daemon started with PID" in stdout, stderr
+
+
+def test_sync_log_file(prepare_and_compare_dirs: dict[str, str]):
+    result = subprocess.run(
+        ["python", "veeam-syncer.py",
+         "monoshot",
+         "--source", prepare_and_compare_dirs["src_dir"],
+         "--replica", prepare_and_compare_dirs["rep_dir"],
+         "--logfile", "test-sync.log"
+         ],
+        capture_output=True,
+        text=True,
+        check=True
+    )
+    assert "Starting single shot synchroniser" in result.stdout, result.stderr
+
+    with open('./test-sync.log', 'r') as f:
+        log_content = f.read()
+        assert "SYNCED AT" in log_content, "SYNCED AT not found in sync.log"
+    
+    os.remove('./test-sync.log')
+
+def test_io_log_file(prepare_and_compare_dirs: dict[str, str]):
+    result = subprocess.run(
+        ["python", "veeam-syncer.py",
+         "monoshot",
+         "--source", prepare_and_compare_dirs["src_dir"],
+         "--replica", prepare_and_compare_dirs["rep_dir"],
+         "--iologfile", "test-io.log"
+         ],
+        capture_output=True,
+        text=True,
+        check=True
+    )
+    assert "Starting single shot synchroniser" in result.stdout, result.stderr
+
+    with open('./test-io.log', 'r') as f:
+        log_content = f.read()
+        assert any(event in log_content for event in ["FILE CREATED", "FILE REMOVED", "DIR CREATED", "DIR REMOVED"]), \
+            "Expected events not found in io.log"
+    
+    os.remove('./test-io.log')

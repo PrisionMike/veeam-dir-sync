@@ -1,3 +1,4 @@
+"""Populate the source directory with random files and directories."""
 import os
 import random
 import string
@@ -7,17 +8,15 @@ import shutil
 from dotenv import load_dotenv
 from datetime import datetime
 
-INTERVAL = 1
+INTERVAL = 5
 
-load_dotenv('../.env')
-
-BASE_DIR = os.getenv("SOURCE_DIR")
+BASE_DIR = "./test-payloads/source"
 
 def random_string(length=10):
     """Generate a random string of given length."""
     return ''.join(random.choices(string.ascii_letters, k=length))
 
-def create_random_structure(base_dir, depth=2, max_files=4, file_probability=0.7):
+def create_random_structure(base_dir, depth=2, max_files=20, file_probability=0.8):
     """
     Creates a nested directory structure under base_dir.
     At each level, with a given probability, it creates a random number of files.
@@ -68,7 +67,7 @@ def create_random_file_in_root(base_dir):
         f.write(random_string(50))
     print(f"[{datetime.now()}] Created file in base: {file_path}")
 
-def delete_random_elements(base_dir, deletion_probability=0.2):
+def delete_random_elements(base_dir, deletion_probability=0.24):
     """
     Delete some random files and folders within base_dir.
     """

@@ -68,6 +68,12 @@ def run_once():
     print("Starting single shot synchroniser...")
     subprocess.Popen(["python", "./src/sync_daemon.py", "monoshot"], start_new_session=True)
 
+def add_common_arguments(subparser):
+    subparser.add_argument("--source", "-s", required=True, help="Path to the source directory")
+    subparser.add_argument("--replica", "-r", required=True, help="Path to the destination (replica) directory")
+    subparser.add_argument("--logfile", "-l", default="synchronisation.log", help="Path to the main syncer log file")
+    subparser.add_argument("--iologfile", "-i", default="file-io.log", help="Path to the IO log file")
+
 def get_parser():
     parser = argparse.ArgumentParser(description="Veeam demo synchronisation program."
     "Does a continuous one-way synchronisation of the source directory to the replica directory.")
@@ -75,14 +81,12 @@ def get_parser():
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     start_subparser = subparsers.add_parser("start", help="Starts the synchroniser")
-    start_subparser.add_argument("--source", "-s", required=True, help="Path to the source directory")
-    start_subparser.add_argument("--replica", "-r", required=True, help="Path to the destination (replica) directory")
+    add_common_arguments(start_subparser)
 
     subparsers.add_parser("stop", help="Stops any pre-running synchroniser")
     
     monoshot_subparser = subparsers.add_parser("monoshot", help="Runs the syncer once then stop. Stops any pre-existing daemons.")
-    monoshot_subparser.add_argument("--source", "-s", required=True, help="Path to the source directory")
-    monoshot_subparser.add_argument("--replica", "-r", required=True, help="Path to the destination (replica) directory")
+    add_common_arguments(monoshot_subparser)
 
     return parser
 
@@ -108,12 +112,20 @@ def read_env_file():
 
 def prepare_env_variables(args):
     """Prepares and writes environment variables to veeam-syncer.env"""
-    env_vars = read_env_file()
-    
+    env_vars = read_env_file() 
     env_vars["ROOT_DIR"] = os.getcwd()
-    if hasattr(args, "source") and hasattr(args, "replica"):
+    
+    if hasattr(args, "source"):
         env_vars["SOURCE_DIR"] = args.source
+
+    if hasattr(args, "replica"):
         env_vars["REPLICA_DIR"] = args.replica
+
+    if hasattr(args, "logfile"):
+        env_vars["SYNC_LOG_FILE"] = args.logfile
+
+    if hasattr(args, "iologfile"):
+        env_vars["IO_LOG_FILE"] = args.iologfile
 
     write_env_file(env_vars)
 
