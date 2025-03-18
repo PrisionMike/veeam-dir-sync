@@ -4,5 +4,6 @@ replica2
 src-incomp
 src-full
 veeam-syncer.env.bkp
+test-payloads/*
 ./tests/__pycache__/
 **/__pycache__/
